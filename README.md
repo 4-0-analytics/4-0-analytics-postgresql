@@ -188,3 +188,7 @@ python manage.py migrate --database emcardb
 
 https://github.com/4-0-analytics/4-0-analytics-postgresql.git
 
+CREATE SCHEMA IF NOT EXISTS emcarsref
+    AUTHORIZATION devuser;
+
+GRANT ALL ON SCHEMA emcarsref TO devuser;

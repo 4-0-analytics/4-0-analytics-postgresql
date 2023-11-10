@@ -25,8 +25,8 @@ class AuditLog(models.Model):
     user = models.CharField(max_length=100, default='')
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return self.tableName
@@ -40,8 +40,8 @@ class AuditValues(models.Model):
     newValue = models.CharField(max_length=1000, default='')
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return f"{self.auditLog} {self.fieldName}"
@@ -52,8 +52,8 @@ class DTC(models.Model):
     dtcDesc = models.CharField(max_length=100, default='')
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     class Meta:
         ordering = ['dtcId']
@@ -72,8 +72,8 @@ class Vehicle(models.Model):
     latestActDt = models.DateTimeField(blank=False)
     createdBy = models.CharField(max_length=50, blank=False, default='')
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, default='')
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     class Meta:
         ordering = ['vehicleId']
@@ -90,9 +90,8 @@ class Client(models.Model):
     industry = models.CharField(max_length=25, default='')
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
-
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
     class Meta:
         ordering = ['clientId']
 
@@ -108,8 +107,8 @@ class AdminUser(models.Model):
     employmentStat = models.CharField(max_length=8, default='')
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return f"{self.fName} {self.lName}"
@@ -124,8 +123,8 @@ class Department(models.Model):
     deptNm = models.CharField(max_length=50, blank=False)
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return self.deptNm
@@ -143,9 +142,8 @@ class ClientUser(models.Model):
     employmentStat = models.CharField(max_length=8, default='')
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
-
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
     def __str__(self):
         return f"{self.fName} {self.lName}"
 
@@ -157,8 +155,8 @@ class Role(models.Model):
     permissions = models.ManyToManyField("Permission", through='GrantedPermissions')
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return self.roleDesc
@@ -170,8 +168,8 @@ class Permission(models.Model):
     permissionDesc = models.CharField(max_length=50, blank=False)
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return self.permissionDesc
@@ -182,8 +180,8 @@ class GrantedPermissions(models.Model):
     permission = models.ForeignKey(Permission, on_delete=models.CASCADE)
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return "{}_{}".format(self.role.__str__(), self.permission.__str__())
@@ -195,8 +193,8 @@ class UserRoles(models.Model):
     role = models.ForeignKey(Role, related_name='clientUsers', on_delete=models.CASCADE, blank=False)
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return "{}_{}".format(self.role.__str__(), self.clientUser.__str__())
@@ -218,8 +216,8 @@ class UserLoginData(models.Model):
     RecoveryTokenTime = models.DateTimeField(auto_now_add=True)
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return "{}_{}".format(self.clientUser.__str__(), self.loginName.__str__())
@@ -234,8 +232,8 @@ class HashAlgo(models.Model):
     algorithmName = models.CharField(max_length=10, blank=False)
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return "{}_{}".format(self.userLoginData.__str__(), self.algorithmName.__str__())
@@ -250,8 +248,8 @@ class EmailValidStatus(models.Model):
     statusDescription = models.CharField(max_length=30, blank=False)
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return "{}_{}".format(self.userLoginData.__str__(), self.statusDescription.__str__())
@@ -280,8 +278,8 @@ class ContactAddress(models.Model):
     zipCd = models.IntegerField(blank=False)
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return self.address1
@@ -349,8 +347,8 @@ class DataLogger(models.Model):
     status = models.CharField(max_length=8, default='')
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return self.dataLoggerNbr
@@ -368,8 +366,8 @@ class VehicleDataLoggerHist(models.Model):
     odomEnd = models.IntegerField(blank=False)
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
 
 class VehicleData(models.Model):
@@ -384,8 +382,8 @@ class VehicleData(models.Model):
     trimDesc = models.CharField(max_length=100, default='')
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return self.vehiclenbr
@@ -399,8 +397,8 @@ class VehicleMprs(models.Model):
     colorInt = models.IntegerField(blank=False)
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return self.mprs
@@ -417,8 +415,8 @@ class VehicleReviews(models.Model):
     cons = models.CharField(max_length=500, default='')
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return self.source
@@ -441,8 +439,8 @@ class VehicleFuel(models.Model):
     electricIrng = models.DecimalField(max_digits=4, decimal_places=2)
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return f"{self.engineType} {self.fueType}"
@@ -462,8 +460,8 @@ class VehicleDemInt(models.Model):
     rearShoulderRm = models.DecimalField(max_digits=5, decimal_places=2)
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return f"{self.vehicleDemIntId} {self.frontHeadRoom}"
@@ -481,8 +479,8 @@ class VehicleWarranty(models.Model):
     evBatt = models.IntegerField()
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return f"{self.vehicleWarrId} {self.manufacture}"
@@ -499,8 +497,8 @@ class VehicleEngTrns(models.Model):
     trans = models.CharField(max_length=50, default='')
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return f"{self.vehicleEngRrnsId} {self.torQue} {self.valves}"
@@ -532,8 +530,8 @@ class VehicleDimExt(models.Model):
     maxTowcapac = models.IntegerField()
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return f"{self.vehicleDimExtId} {self.bodyType}"
@@ -545,8 +543,8 @@ class EmailValidationStatus(models.Model):
     statusDescription = models.CharField(max_length=30, default='')
     createdBy = models.CharField(max_length=50, blank=False)
     createdDt = models.DateTimeField(auto_now_add=True)
-    createdBy = models.CharField(max_length=50, blank=False)
-    createdDt = models.DateTimeField(default='')
+    updatedBy = models.CharField(max_length=50, blank=False)
+    updatedDt = models.DateTimeField(default='')
 
     def __str__(self):
         return f"{self.emailValidationId} {self.statusDescription}"
