@@ -192,3 +192,19 @@ CREATE SCHEMA IF NOT EXISTS emcarsref
     AUTHORIZATION devuser;
 
 GRANT ALL ON SCHEMA emcarsref TO devuser;
+################################################
+Steve's phone ip address: 49.216.98.100
+
+######################### deploy django to aws eb #####################
+pip install awsebcli --upgrade
+eb init -p python-3.11 40-analytics-application
+eb init
+eb create django-env
+eb create --vpc.id vpc-0551b344bd4d1961a  --vpc.dbsubnets subnet-0ab5e2c402d101365,subnet-id2 --vpc.ec2subnets subnet-id1,subnet-id2
+eb create --vpc.id vpc-09394eaf3b3a0f5e7  --vpc.dbsubnets subnet-0ebcf1fdd1e1c22bc,subnet-id2 --vpc.ec2subnets subnet-id1,subnet-id2
+eb create django-env --elb-type classic
+eb status
+eb deploy
+eb open
+
+
