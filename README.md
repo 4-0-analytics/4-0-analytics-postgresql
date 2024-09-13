@@ -194,13 +194,26 @@ CREATE SCHEMA IF NOT EXISTS emcarsref
 GRANT ALL ON SCHEMA emcarsref TO devuser;
 ################################################
 Steve's phone ip address: 49.216.98.100
+Steve's Home ip address:  68.198.219.232
+
 
 ######################### deploy django to aws eb #####################
 pip install awsebcli --upgrade
-eb init -p python-3.11 40-analytics-application
+eb init -p python-3.11 40-analytics-auto
 eb init
-eb create django-env
-eb create --vpc.id vpc-0551b344bd4d1961a  --vpc.dbsubnets subnet-0ab5e2c402d101365,subnet-id2 --vpc.ec2subnets subnet-id1,subnet-id2
+eb init -i
+eb create
+eb platform select
+#eb create django-env
+#MyElasticBeanstalkApp
+eb create --vpc.id vpc-0d1cb06b --elb-type application 
+eb create --vpc.id vpc-0d1cb06b --vpc.elbsubnets subnet-edeefea4,subnet-0d06f86b i-0080a403d9b821264
+#eb create --vpc.id vpc-095d18d6bd7ee6033 --elb-type classic
+aws ec2 describe-instance-status --include-all-instances
+i-0f3447d2205c45416,i-00e1c7539c72b0df3
+
+
+eb create --vpc.id vpc-095d18d6bd7ee6033  --vpc.dbsubnets subnet-0ab5e2c402d101365,subnet-id2 --vpc.ec2subnets subnet-id1,subnet-id2
 eb create --vpc.id vpc-09394eaf3b3a0f5e7  --vpc.dbsubnets subnet-0ebcf1fdd1e1c22bc,subnet-id2 --vpc.ec2subnets subnet-id1,subnet-id2
 eb create django-env --elb-type classic
 eb status
@@ -208,3 +221,14 @@ eb deploy
 eb open
 
 
+eb create \
+    --elb-type application \
+    --region us-east-1 \
+    --platform "64bit Amazon Linux 2015.09 v2.0.6 running Docker 1.7.1" \
+    --version my-version \
+    --vpc.id <vpc to launch into> \
+    my-environment-name
+
+ aws ec2 describe-vpcs --region us-east-2
+ 
+40analyticsauto.us-east-2.elasticbeanstalk.com
